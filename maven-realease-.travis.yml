@@ -1,0 +1,17 @@
+language: java
+sudo: false
+jobs:
+  include:
+    - stage: Tests 
+      script: echo "`date` Unit Tests1" && sleep1
+      name: "Unit Tests"
+    - script: echo "`date` Integration-tests" && sleep 2
+      name: "Integration Tests"         
+    - stage: build
+      name: "Mvn build"
+      script: mvn package
+deploy:
+  provider: releases
+  api_key: "$API_KEY"
+  file: "target/my-app-1.0-SNAPSHOT.jar"
+  skip_cleanup: true
